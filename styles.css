@@ -1,125 +1,48 @@
-body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    background-color: #111;
-    color: #fff;
-    margin: 0;
-    overflow: hidden;
+// Data de referência (29 de abril de 2021)
+const referenceDate = new Date("2021-04-29");
+
+function updateCounter() {
+    const now = new Date();
+    const timeDifference = now - referenceDate;
+
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
 }
 
-.stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('stars.png');
-    animation: starsAnimation 20s linear infinite;
-    z-index: 0;
-}
+// Atualiza o contador a cada segundo
+setInterval(updateCounter, 1000);
 
-@keyframes starsAnimation {
-    0% {
-        background-position: 0 0;
+// Função para criar a animação do coração
+function createHeartAnimation() {
+    const heartContainer = document.querySelector(".hearts-container");
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heartContainer.appendChild(heart);
+
+    // Definindo a posição inicial do coração
+    const startPosX = Math.random() * window.innerWidth;
+    const startPosY = Math.random() * window.innerHeight;
+    heart.style.left = startPosX + "px";
+    heart.style.top = startPosY + "px";
+
+    // Definindo o tamanho inicial do coração
+    heart.style.width = "100px";
+    heart.style.height = "100px";
+    heart.style.opacity = "0";
+
+    // Função de animação para aumentar o tamanho do coração gradualmente
+    function growHeart() {
+        heart.style.opacity = "1";
+        heart.style.transition = "all 2s ease-out";
+        heart.style.width = "200px";
+        heart.style.height = "200px";
     }
-    100% {
-        background-position: 1000px 1000px;
-    }
-}
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 2;
-}
-
-h1 {
-    color: #ff66cc;
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-p {
-    line-height: 1.6;
-}
-
-.counter {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #ffebf3;
-    border-radius: 5px;
-}
-
-h2 {
-    color: #ff66cc;
-    margin-bottom: 10px;
-}
-
-.hearts-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.heart {
-    width: 0;
-    height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-bottom: 100px solid #ff66cc;
-    position: absolute;
-    opacity: 0;
-    transform: scale(0);
-    border-radius: 50%;
-    animation: growHeart 2s ease-out forwards;
-}
-
-@keyframes growHeart {
-    0% {
-        opacity: 1;
-        transform: scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(-10px) rotate(0deg) scale(0.7);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(600px) rotate(360deg) scale(0.7);
-        opacity: 0;
-    }
-}
-
-.heart-animation {
-    animation: fall 4s linear infinite;
-}
-
-.heart-animation:nth-child(2) {
-    left: 25%;
-    animation-delay: -1s;
-}
-
-.heart-animation:nth-child(3) {
-    left: 50%;
-    animation-delay: -2s;
-}
-
-.heart-animation:nth-child(4) {
-    left: 75%;
-    animation-delay: -3s;
-}
+    // Iniciar a animação
