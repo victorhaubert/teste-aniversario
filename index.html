@@ -1,35 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Aniversário!</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário Romântico</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #header {
+      background-color: #e60073;
+      color: #fff;
+      padding: 20px;
+    }
+    #message {
+      font-size: 24px;
+      padding: 30px;
+    }
+    #countdown {
+      font-size: 30px;
+      padding: 20px;
+    }
+    #heart {
+      fill: #ff355e;
+      stroke: #ff355e;
+      animation: heartbeat 2s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+    #particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="stars"></div>
-    <div class="container">
-        <h1>Feliz Aniversário, Meu Amor!</h1>
-        <p>Hoje é um dia especial porque é o seu aniversário! 🎉</p>
-        <p>Desde que conheci você em 29 de abril de 2021, tem sido uma jornada maravilhosa e cheia de amor.</p>
-        <p>Mal posso esperar para celebrar muitos mais aniversários juntos!</p>
+  <div id="particles"></div>
+  <div id="header">
+    <h1>Feliz Aniversário!</h1>
+  </div>
+  <div id="message">
+    <p>Meu amor, hoje é um dia muito especial. Quero te desejar um feliz aniversário cheio de amor, felicidade e alegria. Você é a pessoa mais incrível que já conheci e sou grato(a) todos os dias por ter você em minha vida.</p>
+  </div>
+  <div id="countdown">
+    <p>Faz exatamente:</p>
+    <p id="timer"></p>
+  </div>
 
-        <div class="counter">
-            <h2>Contador Especial</h2>
-            <p>Fazemos <span id="days">0</span> dias, <span id="hours">0</span> horas, <span id="minutes">0</span> minutos e <span id="seconds">0</span> segundos juntos!</p>
-        </div>
-    </div>
+  <!-- Coração SVG animado -->
+  <svg id="heart" width="100" height="100" viewBox="0 0 24 24">
+    <path d="M12 4.929c-2.362-3.277-7.677-2.495-9.494 1.314-0.418 0.758-0.506 1.496-0.506 2.757 0 2.109 0.833 4.104 2.256 5.577l7.494 7.494 7.494-7.494c1.423-1.473 2.256-3.468 2.256-5.577 0-1.261-0.088-1.999-0.506-2.757-1.818-3.809-7.132-4.591-9.494-1.314zM12 0c3.877 4.587 11.108 3.297 12 8 0.778 4-4 8-12 16-8-8-12-12-12-16 0.892-4.703 8.123-3.413 12-8z"></path>
+  </svg>
 
-    <div class="hearts-container">
-        <div class="heart heart-animation"></div>
-        <div class="heart heart-animation"></div>
-        <div class="heart heart-animation"></div>
-        <div class="heart heart-animation"></div>
-    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+  <script>
+    // Data em que você conheceu a pessoa (defina a data desejada)
+    const dataConhecimento = new Date('2021-04-29');
 
-    <script src="script.js"></script>
+    function atualizarContador() {
+      const agora = new Date().getTime();
+      const diferenca = agora - dataConhecimento.getTime();
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').innerHTML = `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+    }
+
+    // Atualizar o contador a cada segundo
+    setInterval(atualizarContador, 1000);
+
+    // Partículas animadas de fundo
+    gsap.to("#particles", {
+      duration: 10,
+      repeat: -1,
+      rotation: 360,
+      ease: "linear"
+    });
+  </script>
 </body>
-
 </html>
